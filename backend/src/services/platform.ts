@@ -64,17 +64,17 @@ function initLocalDatabase(): D1ShimDb {
     `);
 
     const shim: D1ShimDb = {
-      prepare(query: string) {
+      prepare(query: string): D1ShimStatement {
+        let queryArgs: any[] = [];
         const stmtObj: D1ShimStatement = {
           bind(...args: any[]) {
-            this._args = args.map(arg => typeof arg === 'boolean' ? (arg ? 1 : 0) : arg);
+            queryArgs = args.map(arg => typeof arg === 'boolean' ? (arg ? 1 : 0) : arg);
             return this;
           },
-          _args: [] as any[],
           async first<T = Record<string, any>>(colName?: string): Promise<T | null> {
             try {
               const stmt = sqlite.prepare(query);
-              const row = stmt.get(...this._args) as any;
+              const row = stmt.get(...queryArgs) as any;
               if (!row) return null;
               if (colName && typeof row === 'object') return row[colName] ?? null;
               return row as T;
@@ -86,7 +86,7 @@ function initLocalDatabase(): D1ShimDb {
           async all<T = Record<string, any>>(): Promise<{ results: T[] }> {
             try {
               const stmt = sqlite.prepare(query);
-              const rows = stmt.all(...this._args) as T[];
+              const rows = stmt.all(...queryArgs) as T[];
               return { results: rows || [] };
             } catch (e) {
               console.error('[DB all Error]:', e, 'Query:', query);
@@ -96,14 +96,14 @@ function initLocalDatabase(): D1ShimDb {
           async run(): Promise<{ meta: { changes: number } }> {
             try {
               const stmt = sqlite.prepare(query);
-              const res = stmt.run(...this._args);
+              const res = stmt.run(...queryArgs);
               return { meta: { changes: Number(res.changes || 0) } };
             } catch (e) {
               console.error('[DB run Error]:', e, 'Query:', query);
               return { meta: { changes: 0 } };
             }
           }
-        } as unknown as D1ShimStatement;
+        };
         return stmtObj;
       },
       async batch(stmts: D1ShimStatement[]): Promise<any[]> {
