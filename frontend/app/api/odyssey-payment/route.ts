@@ -1,2 +1,2 @@
-// Framework adapter. Edit the implementation at backend/src/controllers/odyssey-payment.ts.
-export {dynamic, GET, POST} from "@backend/controllers/odyssey-payment";
+export const dynamic = 'force-dynamic';
+export {GET, POST} from "@backend/controllers/odyssey-payment";

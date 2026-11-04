@@ -48,7 +48,9 @@
     "build/**/*.ts",
     "*.ts",
     "../backend/src/**/*.ts",
-    "../backend/src/**/*.mts"
+    "../backend/src/**/*.mts",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",

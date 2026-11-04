@@ -1,2 +1,2 @@
-// Framework adapter. Edit the implementation at frontend/src/pages/education/ai-odyssey/certificate/page.tsx.
-export {default, dynamic, metadata} from "@frontend/pages/education/ai-odyssey/certificate/page";
+export const dynamic = 'force-dynamic';
+export {default, metadata} from "@frontend/views/education/ai-odyssey/certificate/page";

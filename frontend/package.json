@@ -3,9 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite --port 5173 --host",
-    "build": "vite build",
-    "start": "wrangler dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --port 5173",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
     "db:local": "node ../scripts/migrate-local.mjs"
   }
 }

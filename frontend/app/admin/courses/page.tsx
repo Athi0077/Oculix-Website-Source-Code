@@ -1,2 +1,2 @@
-// Framework adapter. Edit the implementation at frontend/src/pages/admin/courses/page.tsx.
-export {default, dynamic, metadata} from "@frontend/pages/admin/courses/page";
+export const dynamic = 'force-dynamic';
+export {default, metadata} from "@frontend/views/admin/courses/page";

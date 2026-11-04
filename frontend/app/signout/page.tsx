@@ -1,2 +1,2 @@
 // Framework adapter. Edit the implementation at frontend/src/pages/signout/page.tsx.
-export {default} from "@frontend/pages/signout/page";
+export {default} from "@frontend/views/signout/page";

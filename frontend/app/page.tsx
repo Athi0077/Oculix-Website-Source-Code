@@ -1,2 +1,2 @@
-// Framework adapter. Edit the implementation at frontend/src/pages/page.tsx.
-export {default, dynamic} from "@frontend/pages/page";
+export const dynamic = 'force-dynamic';
+export {default} from "@frontend/views/page";

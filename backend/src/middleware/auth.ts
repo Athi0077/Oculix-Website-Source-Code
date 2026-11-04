@@ -1,5 +1,5 @@
 import { headers, cookies } from "next/headers";
-import {env} from "cloudflare:workers";
+import { db } from "@backend/services/platform";
 import {verifyGoogleToken} from "@backend/config/firebase-token";
 import { redirect } from "next/navigation";
 
@@ -23,13 +23,12 @@ const CALLBACK_PATH = "/callback";
 export async function getChatGPTUser(): Promise<ChatGPTUser | null> {
   const token=(await cookies()).get('__Host-oculix_google')?.value;
   if(token){try{const identity=await verifyGoogleToken(token);let userId='firebase:'+identity.uid;
-    if(!env.DB)return null;
-    const mapping=await env.DB.prepare('SELECT value FROM content WHERE key=?').bind('identity:firebase:'+identity.uid).first<{value:string}>();
+    const mapping=await db().prepare('SELECT value FROM content WHERE key=?').bind('identity:firebase:'+identity.uid).first<{value:string}>();
     if(mapping){const m=JSON.parse(mapping.value);if(m.email===identity.email&&typeof m.userId==='string')userId=m.userId;}
     return {userId,email:identity.email,fullName:identity.fullName,displayName:identity.fullName||identity.email};
   }catch{return null;}}
   // Enable only behind an edge that strips and authenticates these headers.
-  if ((env as unknown as Record<string, unknown>).TRUST_PLATFORM_AUTH_HEADERS !== "true") return null;
+  if (process.env.TRUST_PLATFORM_AUTH_HEADERS !== "true") return null;
   // Legacy platform sessions are opt-in; Google remains the normal sign-in.
   const requestHeaders = await headers();
   const userId = requestHeaders.get(USER_ID_HEADER);

@@ -1,7 +1,7 @@
 import {getChatGPTUser} from '@backend/middleware/auth';
 import {db} from '@backend/services/platform';
 import {paymentConfig,paymentsReady,razorpay,validSignature,capturedForOrder} from '@backend/services/odyssey/payment';
-export const PRICE=19900;
+export const PRICE = (typeof (globalThis as any).PRICE === 'number') ? (globalThis as any).PRICE : 19900;
 export const dynamic='force-dynamic';
 const json=(b:unknown,status=200)=>Response.json(b,{status,headers:{'Cache-Control':'private, no-store'}});
 const prefix='live-ai-lab:2026-11-14:';
