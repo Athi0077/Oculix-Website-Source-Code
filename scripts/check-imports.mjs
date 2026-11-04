@@ -1,0 +1,5 @@
+import fs from 'node:fs';
+import path from 'node:path';
+const root=process.cwd(),missing=[];
+function walk(dir){for(const ent of fs.readdirSync(dir,{withFileTypes:true})){if(['node_modules','dist','.git','.wrangler'].includes(ent.name))continue;const f=path.join(dir,ent.name);if(ent.isDirectory())walk(f);else if(/\.(?:tsx?|mts|mjs)$/.test(f)){const txt=fs.readFileSync(f,'utf8');for(const m of txt.matchAll(/(?:from\s*|import\s*\(\s*|import\s*)['"]([^'"]+)['"]/g)){const v=m[1];let base=v.startsWith('@frontend/')?path.join(root,'frontend/src',v.slice(10)):v.startsWith('@backend/')?path.join(root,'backend/src',v.slice(9)):null;if(!base)continue;const candidates=[base,...['.ts','.tsx','.mts','.mjs','.json','.css','/index.ts','/index.tsx'].map(x=>base+x),base.replace(/\.mjs$/,'.mts')];if(!candidates.some(f=>fs.existsSync(f)))missing.push({file:path.relative(root,f),import:v});}}}}
+walk(path.join(root,'frontend'));walk(path.join(root,'backend'));if(missing.length){console.error(missing);process.exitCode=1}else console.log('PASS: all frontend/backend alias imports resolve.');

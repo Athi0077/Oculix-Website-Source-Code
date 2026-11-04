@@ -1,0 +1,5 @@
+{
+  "name": "@oculix/backend",
+  "private": true,
+  "type": "module"
+}

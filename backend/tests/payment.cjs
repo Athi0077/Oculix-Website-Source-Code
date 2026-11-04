@@ -1,0 +1,10 @@
+const assert=require('node:assert/strict'),ts=require('typescript'),fs=require('node:fs');
+const code=ts.transpileModule(fs.readFileSync('../backend/src/services/odyssey/payment.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
+const m={exports:{}};new Function('require','module','exports',code)(p=>p==='cloudflare:workers'?{env:{RAZORPAY_KEY_ID:'rzp_test_example',RAZORPAY_KEY_SECRET:'fake'}}:{db:()=>{throw Error('Unexpected DB access')}},m,m.exports);
+(async()=>{const {capturedForOrder,validSignature,paymentsReady}=m.exports;
+assert.equal(paymentsReady(),false);
+const p={order_id:'order_abc',status:'captured',captured:true,amount:19900,currency:'INR',amount_refunded:0};assert.equal(capturedForOrder(p,'order_abc'),true);
+for(const change of [{order_id:'order_other'},{amount:199},{currency:'USD'},{status:'authorized'},{captured:false},{amount_refunded:1},{refunded:true}])assert.equal(capturedForOrder({...p,...change},'order_abc'),false);
+const key=await crypto.subtle.importKey('raw',new TextEncoder().encode('test-secret'),{name:'HMAC',hash:'SHA-256'},false,['sign']);const bytes=await crypto.subtle.sign('HMAC',key,new TextEncoder().encode('order_abc|pay_abc'));const signature=Buffer.from(bytes).toString('hex');
+assert.equal(await validSignature('test-secret','order_abc|pay_abc',signature),true);assert.equal(await validSignature('test-secret','order_other|pay_abc',signature),false);assert.equal(await validSignature('test-secret','order_abc|pay_abc','invalid'),false);
+console.log('Payment checks passed: test-mode rejection, captured amount/currency/order checks, refund rejection and signature tampering.');})();

@@ -1,0 +1,10 @@
+const assert=require('node:assert/strict'),ts=require('typescript'),fs=require('node:fs');
+const code=ts.transpileModule(fs.readFileSync('../backend/src/services/odyssey/sales.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
+const m={exports:{}};new Function('module','exports',code)(m,m.exports);
+const orders=new Map([['order_a',{email:'buyer@gmail.com'}],['order_b',{email:'other@example.com'}]]);
+const payment={id:'pay_a',order_id:'order_a',amount:19900,currency:'INR',status:'captured',created_at:100,amount_refunded:0};
+const r=m.exports.courseSales([payment,payment,{...payment,id:'pay_b',order_id:'order_b',amount_refunded:19900,status:'refunded'},{...payment,id:'pay_c',status:'failed'},{...payment,id:'pay_d',order_id:'order_unrelated'},{...payment,id:'pay_e',amount:100},{...payment,id:'pay_f',currency:'USD'},{...payment,id:'pay_g',amount_refunded:900}],orders);
+assert.equal(r.totalSales,3);assert.equal(r.purchases,2);assert.equal(r.buyers,1);assert.equal(r.gross,59700);assert.equal(r.refunds,20800);assert.equal(r.collected,38900);assert.equal(r.sales[0].email,'buyer@gmail.com');
+assert.equal(m.exports.courseSales([],orders).collected,0);
+assert.throws(()=>m.exports.courseSales([{...payment,amount_refunded:20000}],orders));
+console.log('Sales checks passed: deduplication, course isolation, captured-only sales, refunds, paise totals, buyer emails and empty state.');

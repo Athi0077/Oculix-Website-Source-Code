@@ -1,0 +1,15 @@
+{
+  "/api/content": "src/controllers/content.ts",
+  "/api/odyssey": "src/controllers/odyssey.ts",
+  "/api/visits": "src/controllers/visits.ts",
+  "/api/odyssey-sales": "src/controllers/odyssey-sales.ts",
+  "/api/requests": "src/controllers/requests.ts",
+  "/api/odyssey-payment": "src/controllers/odyssey-payment.ts",
+  "/api/live-ai-lab-payment": "src/controllers/live-ai-lab-payment.ts",
+  "/api/live-ai-lab-session": "src/controllers/live-ai-lab-session.ts",
+  "/api/google-session": "src/controllers/google-session.ts",
+  "/api/records": "src/controllers/records.ts",
+  "/api/chat": "src/controllers/chat.ts",
+  "/api/live-ai-lab-exam": "src/controllers/live-ai-lab-exam.ts",
+  "/api/admin-access": "src/controllers/admin-access.ts"
+}

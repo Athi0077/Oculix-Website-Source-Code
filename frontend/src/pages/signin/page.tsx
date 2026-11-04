@@ -1,0 +1,3 @@
+import GoogleSignIn from '@frontend/components/signin/sign-in';
+export const metadata={title:'Sign in with Google'};
+export default function Page(){return <main className="wrap" style={{paddingTop:80,paddingBottom:80}}><section className="card" style={{maxWidth:540,margin:'auto'}}><span className="eyebrow">YOUR OCULIX ACCOUNT</span><h1>Welcome to Oculix.</h1><p>Continue with your Google account to buy AI Odyssey, save your learning progress and access your course.</p><GoogleSignIn/><p className="muted">Your purchases belong to the email you choose. Use the same account whenever you return.</p></section></main>}

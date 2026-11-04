@@ -1,0 +1,26 @@
+export type Room={id:string;name:string;group:string;path:string;photo:string;description:string;yaw:number};
+export const rooms:Room[]=[
+{id:'hall',name:'Main hall',group:'Welcome',path:'/',photo:'hall',yaw:0,description:'Welcome to Oculix. Immersive worlds, intelligent machines and experiences that bring tomorrow closer.'},
+{id:'products',name:'Product gallery',group:'Products',path:'/products',photo:'office',yaw:0,description:'Discover the Oculix product family: VirVerse and Humatrix.'},
+{id:'virverse',name:'VirVerse VR lab',group:'Products',path:'/products/virverse',photo:'school_hall',yaw:20,description:'VR labs, headset configurations, installation, training and ongoing support.'},
+{id:'humatrix',name:'Humatrix robotics',group:'Products',path:'/products/humatrix',photo:'empty_warehouse_01',yaw:0,description:'Unitree humanoid robot sourcing, deployment, training and maintenance.'},
+{id:'services',name:'Services lounge',group:'Services',path:'/services',photo:'office',yaw:110,description:'Explore every Oculix service, from virtual reality to creative production.'},
+{id:'rentals',name:'Robot event studio',group:'Services',path:'/services/robot-rentals',photo:'empty_warehouse_01',yaw:100,description:'Humanoid, quadruped and photobooth robot rentals for events.'},
+{id:'vr',name:'VR solutions room',group:'Services',path:'/services/vr-solutions',photo:'studio_small_03',yaw:0,description:'Virtual tours, immersive training, simulations and product experiences.'},
+{id:'carnival',name:'Educational carnival',group:'Services',path:'/services/vr-carnival',photo:'school_hall',yaw:110,description:'Guided virtual reality experiences for schools, colleges and organisations.'},
+{id:'workshop',name:'AI to ASI auditorium',group:'Services',path:'/services/ai-workshop',photo:'school_hall',yaw:-80,description:'The Next Era of Intelligence. Explore the workshop and all four institutional packages.'},
+{id:'creative',name:'Creative production',group:'Services',path:'/services/advertisements',photo:'studio_small_03',yaw:120,description:'Advertisement production in collaboration with Sivan Films.'},
+{id:'education',name:'Oculix Education',group:'Education',path:'/education',photo:'library',yaw:0,description:'Your starting point for Oculix learning experiences and online courses.'},
+{id:'odyssey',name:'AI Odyssey classroom',group:'Education',path:'/education/ai-odyssey',photo:'library',yaw:100,description:'10 units, 60 subtopics, 600 practice questions and a completion certificate. View course enrolment and checkout.'},
+{id:'learning',name:'My learning desk',group:'Education',path:'/education/ai-odyssey/learn',photo:'library',yaw:-110,description:'Your signed-in course access, saved progress, practice and assessment.'},
+{id:'certificate',name:'Certificate desk',group:'Education',path:'/education/ai-odyssey/certificate',photo:'library',yaw:40,description:'Access your earned course certificate. Completion and assessment requirements apply.'},
+{id:'verify',name:'Certificate verification',group:'Education',path:'/education/ai-odyssey/verify',photo:'library',yaw:-30,description:'Verify an Oculix AI Odyssey certificate using its certificate reference.'},
+{id:'oits',name:'OITS technology office',group:'Company',path:'/oits',photo:'office',yaw:60,description:'Oculix Information Technology Services: websites, AI assistants and business automation.'},
+{id:'projects',name:'Project exhibition',group:'Company',path:'/projects',photo:'hall',yaw:100,description:'Explore Oculix projects, ideas and upcoming developments.'},
+{id:'media',name:'Media & recognition',group:'Company',path:'/media',photo:'hall',yaw:-100,description:'Innovation milestones, coverage and recognition from the Oculix journey.'},
+{id:'about',name:'Founder’s room',group:'Company',path:'/about',photo:'office',yaw:-80,description:'The story, vision and people behind Oculix.'},
+{id:'contact',name:'Contact & payments',group:'Connect',path:'/contact',photo:'office',yaw:170,description:'Enquiries, direct contact and the latest general Razorpay payment button.'},
+{id:'portal',name:'Client reception',group:'Connect',path:'/portal',photo:'office',yaw:-150,description:'Sign in to track your Oculix requests and client updates.'},
+{id:'admin',name:'Administration',group:'Connect',path:'/admin',photo:'office',yaw:0,description:'Authorised administration only. Existing sign-in and passcode protection remain in place.'},
+{id:'course-admin',name:'Education administration',group:'Connect',path:'/admin/courses',photo:'library',yaw:0,description:'Authorised course management, enrolment and payment configuration information.'}
+];

@@ -1,0 +1,14 @@
+'use client';
+import {useEffect,useState} from 'react';
+const money=(paise:number)=>new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR'}).format(paise/100);
+export default function OdysseySales(){const [data,setData]=useState<any>(null),[error,setError]=useState(''),[busy,setBusy]=useState(false),[show,setShow]=useState(false);
+ async function load(){setBusy(true);setError('');try{const r=await fetch('/api/odyssey-sales',{cache:'no-store'}),b=await r.json() as any;if(!r.ok)throw Error(b.error||'Could not load sales');setData(b)}catch(e){setError((e as Error).message)}finally{setBusy(false)}}
+ useEffect(()=>{load()},[]);
+ return <section className="card" style={{marginBottom:24}}><div className="actions" style={{justifyContent:'space-between'}}><div><span className="eyebrow">OCULIX EDUCATION</span><h2>AI Odyssey sales</h2></div><button className="button outline small" onClick={load} disabled={busy}>{busy?'Checking…':'Refresh sales'}</button></div>
+ {error&&<p role="alert" className="notice error">{error}</p>}
+ {data?<><div className="stats"><div className="card"><span>Total AI Odyssey bought</span><b>{data.purchases}</b><small>Excludes fully refunded purchases</small></div><div className="card"><span>Total collected amount</span><b>{money(data.collected)}</b><small>After refunds; before fees and settlements</small></div><div className="card"><span>Number of sales</span><b>{data.totalSales}</b><small>Captured transactions, including later refunds</small></div></div>
+ <p>{data.buyers} paying buyers · Gross sales {money(data.gross)} · Refunds {money(data.refunds)}</p><p className="muted">Verified {new Date(data.checkedAt).toLocaleString('en-IN',{timeZone:'Asia/Kolkata'})} IST. {busy?'Refreshing…':error?'Refresh failed; these are the last verified figures.':''}</p>
+ <p>Complimentary and manually granted access are not counted as sales. This amount is course revenue, not your available Razorpay wallet or bank balance. <a className="textlink" href="https://dashboard.razorpay.com/" target="_blank" rel="noreferrer">View Razorpay settlements →</a></p>
+ <button className="button outline small" onClick={()=>setShow(!show)}>{show?'Hide':'Show'} buyer emails & payments ({data.sales.length})</button>
+ {show&&(data.sales.length?<div style={{overflowX:'auto',marginTop:16}}><table style={{width:'100%',textAlign:'left'}}><thead><tr>{['Buyer email','Date (IST)','Paid','Refund','Status','Payment ID'].map(h=><th key={h} style={{padding:10}}>{h}</th>)}</tr></thead><tbody>{data.sales.map((s:any)=><tr key={s.id}><td style={{padding:10}}>{s.email}</td><td>{new Date(s.createdAt).toLocaleString('en-IN',{timeZone:'Asia/Kolkata'})}</td><td>{money(s.amount)}</td><td>{money(s.refund)}</td><td>{s.status}</td><td>{s.id}</td></tr>)}</tbody></table></div>:<p>No verified AI Odyssey purchases yet.</p>)}</>:!error&&<p>Loading verified sales…</p>}</section>
+}

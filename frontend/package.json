@@ -1,0 +1,11 @@
+{
+  "name": "@oculix/frontend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 5173 --host",
+    "build": "vite build",
+    "start": "wrangler dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --port 5173",
+    "db:local": "node ../scripts/migrate-local.mjs"
+  }
+}

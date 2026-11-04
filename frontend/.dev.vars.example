@@ -1,0 +1,7 @@
+# Copy to .dev.vars locally; configure production values with your host's secret manager.
+# Never add .dev.vars to GitHub.
+RAZORPAY_KEY_ID=
+RAZORPAY_KEY_SECRET=
+GEMINI_API_KEY=
+GEMINI_MODEL=gemini-3.1-flash-lite
+TRUST_PLATFORM_AUTH_HEADERS=false
