@@ -33,7 +33,7 @@ return (
             onChange={e => setName(e.target.value)}
             autoComplete="name"
             autoCapitalize="words"
-            placeholder="e.g. Mithun Kumar"
+            placeholder="Your Name"
             className="checkout-input"
           />
         </label>
@@ -47,7 +47,7 @@ return (
             value={phone}
             onChange={e => setPhone(e.target.value)}
             autoComplete="tel"
-            placeholder="e.g. +91 98434 96461"
+            placeholder="Contact Number"
             className="checkout-input"
           />
         </label>
