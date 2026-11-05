@@ -1,2 +1,7 @@
+import { redirect } from 'next/navigation';
+
 export const dynamic = 'force-dynamic';
-export {default, metadata} from "@frontend/views/admin/page";
+
+export default function AdminPage() {
+  redirect('/admin11122010');
+}

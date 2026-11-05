@@ -17,4 +17,4 @@ export async function POST(req:Request){if(req.headers.get('origin')!==new URL(r
  return json({ok:true});
  }catch(err){console.error('[Google Session Error]:',err);return json({error:'Google sign-in could not be verified. Please sign in again.'},401)}
 }
-export async function DELETE(req:Request){if(req.headers.get('origin')!==new URL(req.url).origin)return json({error:'Invalid origin.'},403);const c=await cookies();c.set(cookie,'',{...options,maxAge:0});c.set('oculix_admin','',{...options,maxAge:0});return json({ok:true});}
+export async function DELETE(req:Request){if(req.headers.get('origin')!==new URL(req.url).origin)return json({error:'Invalid origin.'},403);const c=await cookies();c.set(cookie,'',{...options,maxAge:0});c.set('oculix_admin','',{...options,maxAge:0});c.set('oculix_admin_direct','',{...options,maxAge:0});return json({ok:true});}
