@@ -12,7 +12,8 @@
     "start": "npm run start --workspace frontend",
     "check:imports": "node scripts/check-imports.mjs",
     "test": "node --test tests/*.test.mjs",
-    "db:local": "npm run db:local --workspace frontend"
+    "db:local": "npm run db:local --workspace frontend",
+    "reset-admin": "node scripts/reset-admin.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
